@@ -3,19 +3,17 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public float horizontalInput;
-    public float speed = 20.0f;
+    public float speed = 25.0f;
     private float xRange = 17f;
 
-    public GameObject projectilePrefab;
+    private ObjectPool bulletPool;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+	private void Start()
+	{
+        bulletPool = GameObject.Find("Bullet Object Pool").GetComponent<ObjectPool>();
+	}
 
-    // Update is called once per frame
-    void Update()
+	void Update()
     {
         if (transform.position.x < -xRange)
         {
@@ -27,7 +25,8 @@ public class PlayerController : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            Instantiate(projectilePrefab, transform.position, projectilePrefab.transform.rotation);
+            //Instantiate(projectilePrefab, transform.position, projectilePrefab.transform.rotation);
+            bulletPool.GetObject(transform.position);
         }
 
         horizontalInput = Input.GetAxis("Horizontal");

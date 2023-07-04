@@ -393,10 +393,8 @@ GameObject:
   m_Component:
   - component: {fileID: 6693802610151131033}
   - component: {fileID: 6693802610143541437}
-  - component: {fileID: 6693802611322697174}
-  - component: {fileID: 4996308870922946972}
-  - component: {fileID: 8309151463709175170}
   - component: {fileID: 3011375377637798331}
+  - component: {fileID: 8309151463709175170}
   m_Layer: 0
   m_Name: Animal_Horse_Black
   m_TagString: Untagged
@@ -446,7 +444,7 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &6693802611322697174
+--- !u!114 &3011375377637798331
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -455,22 +453,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 6693802610150888105}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f9e1ebb29f439814ea05617d1962d252, type: 3}
+  m_Script: {fileID: 11500000, guid: b0510f620a507f547bc95e1e403d1cfa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 15
---- !u!114 &4996308870922946972
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6693802610150888105}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cffed0665f5326b49a214ff49794d501, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!65 &8309151463709175170
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -484,18 +470,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 15, y: 37.485428, z: 44.88859}
   m_Center: {x: 0, y: 18.24271, z: 4.3228626}
---- !u!114 &3011375377637798331
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6693802610150888105}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3f057f41b57239f41a0bd8b93831d640, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &6693802610150888287
 GameObject:
   m_ObjectHideFlags: 0
