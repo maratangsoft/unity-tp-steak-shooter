@@ -2,23 +2,33 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Bullet : MonoBehaviour
+namespace Maratangsoft.SteakShooter
 {
-	[SerializeField] private float speed = 40.0f;
-	private ObjectPool bulletPool;
-
-	private void Start()
+	public class Bullet : MonoBehaviour
 	{
-		bulletPool = GameObject.Find("Bullet Object Pool").GetComponent<ObjectPool>();
-	}
+		[SerializeField] private float speed = 40.0f;
 
-	void Update()
-	{
-		transform.Translate(Vector3.forward * Time.deltaTime * speed);
-	}
+		private ObjectPool bulletPool;
+		private GameManager gameManager = GameManager.Instance;
 
-	private void OnTriggerEnter(Collider other)
-	{
-		bulletPool.RetrieveObject(gameObject);
+		private void Start()
+		{
+			bulletPool = GameObject.Find("Bullet Object Pool").GetComponent<ObjectPool>();
+		}
+
+		void Update()
+		{
+			transform.Translate(Vector3.forward * Time.deltaTime * speed);
+
+			if (transform.position.z > gameManager.topBorder)
+			{
+				bulletPool.ReturnObject(gameObject);
+			}
+		}
+
+		private void OnTriggerEnter(Collider other)
+		{
+			bulletPool.ReturnObject(gameObject);
+		}
 	}
 }

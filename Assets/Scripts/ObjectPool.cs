@@ -1,72 +1,85 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Pool;
 
-public class ObjectPool : MonoBehaviour
+namespace Maratangsoft.SteakShooter
 {
-	[SerializeField] private GameObject[] prefabsToPool;
-	[SerializeField] private int initCount = 10;
-
-	private List<GameObject> pooledObjects;
-
-	private void Start()
+	public class ObjectPool : MonoBehaviour
 	{
-		pooledObjects = new List<GameObject>(initCount);
-		Initialize();
-	}
+		[SerializeField] private GameObject[] prefabsToPool;
 
-	private void Initialize() 
-	{
-		for (int i = 0; i < initCount; i++) 
+		private List<GameObject> pooledObjects;
+		private int totalNumOfPrefabTypes = 0;
+		private bool isInitialized = false;
+
+		public void ExpandPool(int numOfPrefabTypes, int poolingCount)
 		{
-			int randomIndex = Random.Range(0, prefabsToPool.Length);
-			GameObject newObj = CreateNewObject(randomIndex);
-			pooledObjects.Add(newObj);
-		}
-	}
-
-	private GameObject CreateNewObject(int index)
-	{
-		GameObject newObj = Instantiate(prefabsToPool[index]);
-		newObj.SetActive(false);
-		newObj.transform.SetParent(transform);
-		return newObj;
-	}
-
-	public GameObject GetObject(Vector3 position)
-	{
-		GameObject obj = null;
-		while (true)
-		{
-			int index = Random.Range(0, pooledObjects.Count);
-			if (!pooledObjects[index].activeInHierarchy)
+			if (totalNumOfPrefabTypes + numOfPrefabTypes > prefabsToPool.Length)
 			{
-				obj = pooledObjects[index];
-				break;
+				throw new IndexOutOfRangeException(
+					"parameter numOfObjectKind should not be larger than the number of prefabs you attached on Prefabs To Pool array in inspector."
+				);
 			}
+
+			if (pooledObjects == null) 
+			{
+				pooledObjects = new List<GameObject>(poolingCount);
+			}
+
+			for (int i = 0; i < poolingCount; i++)
+			{
+				int randomIndex = UnityEngine.Random.Range(totalNumOfPrefabTypes, numOfPrefabTypes);
+				GameObject newObj = CreateNewObject(randomIndex);
+				pooledObjects.Add(newObj);
+			}
+			totalNumOfPrefabTypes += numOfPrefabTypes;
+			isInitialized = true;
 		}
-		if (obj == null)
+
+		private GameObject CreateNewObject(int index)
 		{
-			int randomIndex = Random.Range(0, prefabsToPool.Length);
-			obj = CreateNewObject(randomIndex);
+			GameObject newObj = Instantiate(prefabsToPool[index]);
+			newObj.SetActive(false);
+			newObj.transform.SetParent(transform);
+			return newObj;
 		}
-		obj.transform.position = position;
-		obj.gameObject.SetActive(true);
 
-		return obj;
-	}
-
-	public void RetrieveObject(GameObject obj)
-	{
-		obj.gameObject.SetActive(false);
-	}
-
-	public void RetrieveAll()
-	{
-		foreach (GameObject obj in pooledObjects)
+		public GameObject GetObject(Vector3 position, Quaternion rotation)
 		{
-			obj.gameObject.SetActive(false);
+			if (!isInitialized) throw new Exception("You should call ExpandPool() method first.");
+
+			GameObject obj = null;
+			while (true)
+			{
+				int index = UnityEngine.Random.Range(0, pooledObjects.Count);
+				if (!pooledObjects[index].activeInHierarchy)
+				{
+					obj = pooledObjects[index];
+					break;
+				}
+			}
+			if (obj == null)
+			{
+				int randomIndex = UnityEngine.Random.Range(0, prefabsToPool.Length);
+				obj = CreateNewObject(randomIndex);
+			}
+			obj.transform.SetPositionAndRotation(position, rotation);
+			obj.SetActive(true);
+
+			return obj;
+		}
+
+		public void ReturnObject(GameObject obj)
+		{
+			obj.SetActive(false);
+		}
+
+		public void ReturnAll()
+		{
+			foreach (GameObject obj in pooledObjects)
+			{
+				obj.SetActive(false);
+			}
 		}
 	}
 }
