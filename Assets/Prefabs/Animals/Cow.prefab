@@ -1395,7 +1395,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHp: 5
-  speed: 6
+  speed: 4
 --- !u!1 &3566760881633227429
 GameObject:
   m_ObjectHideFlags: 0

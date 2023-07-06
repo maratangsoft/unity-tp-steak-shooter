@@ -13,14 +13,14 @@ namespace Maratangsoft.SteakShooter
 
 		private void Start()
 		{
-			bulletPool = GameObject.Find("Bullet Object Pool").GetComponent<ObjectPool>();
+			bulletPool = gameManager.BulletPool;
 		}
 
 		void Update()
 		{
-			transform.Translate(Vector3.forward * Time.deltaTime * speed);
+			transform.Translate(speed * Time.deltaTime * Vector3.forward);
 
-			if (transform.position.z > gameManager.topBorder)
+			if (transform.position.z > gameManager.TopBorder)
 			{
 				bulletPool.ReturnObject(gameObject);
 			}
