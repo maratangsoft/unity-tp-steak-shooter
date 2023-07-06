@@ -470,7 +470,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHp: 1
-  speed: 16
+  speed: 14
 --- !u!1 &6693802610150888287
 GameObject:
   m_ObjectHideFlags: 0

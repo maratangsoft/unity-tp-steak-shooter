@@ -4,20 +4,12 @@ namespace Maratangsoft.SteakShooter
 {
 	public class PlayerController : MonoBehaviour
 	{
-		[HideInInspector] private float horizontalInput;
 		[SerializeField] private float speed = 25.0f;
+		[SerializeField] private BulletShooter bulletShooter;
+
+		[HideInInspector] private float horizontalInput;
 
 		private float xRange = 17f;
-		private int numOfBulletTypes = 1;
-		private int initPoolingCount = 6;
-
-		private ObjectPool bulletPool;
-
-		private void Start()
-		{
-			bulletPool = GameObject.Find("Bullet Object Pool").GetComponent<ObjectPool>();
-			bulletPool.ExpandPool(numOfBulletTypes, initPoolingCount);
-		}
 
 		void Update()
 		{
@@ -31,7 +23,7 @@ namespace Maratangsoft.SteakShooter
 			}
 			if (Input.GetKeyDown(KeyCode.Space))
 			{
-				bulletPool.GetObject(transform.position, transform.rotation);
+				bulletShooter.Shoot();
 			}
 
 			horizontalInput = Input.GetAxis("Horizontal");

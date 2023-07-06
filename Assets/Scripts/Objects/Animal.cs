@@ -1,4 +1,3 @@
-using Maratangsoft.SteakShooter;
 using UnityEngine;
 
 namespace Maratangsoft.SteakShooter
@@ -9,23 +8,23 @@ namespace Maratangsoft.SteakShooter
 		[SerializeField] private float speed = 10.0f;
 
 		private ObjectPool animalPool;
-		private GameManager gameManager = GameManager.Instance;
+		private GameManager gameManager;
 		private int currentHp;
 
 		private void Start()
 		{
-			animalPool = GameObject.Find("Animal Object Pool").GetComponent<ObjectPool>();
+			gameManager = GameManager.Instance;
+			animalPool = gameManager.AnimalPool;
 			currentHp = maxHp;
 		}
 
 		void Update()
 		{
-			transform.Translate(Vector3.forward * Time.deltaTime * speed);
+			transform.Translate(speed * Time.deltaTime * Vector3.forward);
 
-			if (transform.position.z < gameManager.bottomBorder)
+			if (transform.position.z < gameManager.BottomBorder)
 			{
-				animalPool.ReturnObject(gameObject);
-				gameManager.StageOver(StageResult.LOSE);
+				gameManager.Lose();
 			}
 		}
 
