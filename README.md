@@ -1,4 +1,4 @@
-# Unity Toy Project: The Steak Shooter
+# Unity Toy Project: Steak Shooter
 ## Overview
 달려오는 동물들에게 스테이크를 쏴서 맞추는 탑다운 슈팅 미니게임입니다.<br>
 [Unity Learn - Junior Programmer Unit 2](https://learn.unity.com/project/2danweon-gibon-geimpeulrei) 과정에서 제작한 프로젝트에 여러 컨텐츠를 추가하여 만들었습니다.<br>
